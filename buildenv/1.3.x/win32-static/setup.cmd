@@ -103,6 +103,27 @@ set GIT_TARGET=%MUMBLE_PREFIX%\mumble-releng
 if exist %GIT_TARGET% ( rd /s /q %GIT_TARGET% )
 git clone --recursive "%MUMBLE_RELENG%" "%GIT_TARGET%" >NUL 2>NUL
 
+:: If we don't have a system-level Cygwin installation,
+:: bootstrap our own.
+:: Note: this requires GPG4Win to be installed in order
+:: to verify the signature of Cygwin's setup.exe.
+set MUMBLE_GPG_HOME=%MUMBLE_PREFIX%\trust
+set MUMBLE_GPG_CMD=gpg.exe --ignore-time-conflict --no-options --no-default-keyring ^
+--secret-keyring %MUMBLE_GPG_HOME%\secring.gpg --trustdb-name %MUMBLE_GPG_HOME%\trustdb.gpg ^
+--keyring %MUMBLE_GPG_HOME%\trusted.gpg --primary-keyring %MUMBLE_GPG_HOME%\trusted.gpg
+reg query "HKCU\Software\Cygwin\Installations" >NUL
+if errorlevel 0 (
+	:: Set up our GPG trust store
+	mkdir "%MUMBLE_GPG_HOME%"
+	%MUMBLE_GPG_CMD% --import "%MUMBLE_RELENG%\sigs\cygwin.sig"
+	:: Bootstrap Cygwin
+	"%MUMBLE_RELENG%\tools\cygwin-bootstrap.py" "%MUMBLE_PREFIX%\cygwin"
+	if errorlevel 1 (
+		echo "Fatal error: Cygwin installation failed."
+		pause
+	)
+)
+
 if not "%1"=="/noninteractive" (
 	echo.
 	echo Build environment successfully created.

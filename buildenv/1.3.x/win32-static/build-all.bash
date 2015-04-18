@@ -5,7 +5,8 @@
 # <http://mumble.info/mumble-releng/LICENSE>.
 
 export MUMBLE_RELENG_ROOT=$(git rev-parse --show-toplevel)
-export PATH=${MUMBLE_RELENG_ROOT}/mumble-build:${PATH}
+export MUMBLE_BUILD_ROOT=$(cygpath -u "${MUMBLE_RELENG_ROOT}")/mumble-build
+export PATH=${MUMBLE_BUILD_ROOT}:${PATH}
 
 ./nasm-binary.build
 ./cmake-binary.build
