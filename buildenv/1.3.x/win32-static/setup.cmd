@@ -100,7 +100,7 @@ if not exist %MUMBLE_PREFIX% ( mkdir %MUMBLE_PREFIX% >NUL )
 if not exist %MUMBLE_PREFIX_BUILD% ( mkdir %MUMBLE_PREFIX_BUILD% >NUL )
 copy /Y setup\env %MUMBLE_PREFIX% >NUL
 copy /Y setup\prep.cmd %MUMBLE_PREFIX% >NUL
-copy /Y setup\cygwin.cmd %MUMBLE_PREFIX% >NUL
+copy /Y setup\busybox.cmd %MUMBLE_PREFIX% >NUL
 wscript setup\mklinks.wsf %MUMBLE_PREFIX% >NUL
 
 :: Clone this revision of the mumble-releng repo
