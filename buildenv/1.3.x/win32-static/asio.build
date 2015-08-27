@@ -4,27 +4,21 @@
 # can be found in the LICENSE file in the source tree or at
 # <http://mumble.info/mumble-releng/LICENSE>.
 
-urls=(
-	# Note: We do not want to redistribute the ASIO SDK for now.
-	# That's why we only refer to the SDK on Steinberg's site.
-	"http://www.steinberg.net/sdk_downloads/asiosdk2.3.zip"
-)
+url = ""
+origin = "http://www.steinberg.net/sdk_downloads/asiosdk2.3.zip"
+digest_sha1 = "4ed6c150dcc1ee55d4ae32dfabad306547e9f15d"
+digest_sha256 = "69225020e9144af568784c6076b55939a55369edaf0ffcdf4d5e5b5898f31b9b"
 
-digests=(
-	"sha1:4ed6c150dcc1ee55d4ae32dfabad306547e9f15d"
-	"sha256:69225020e9144af568784c6076b55939a55369edaf0ffcdf4d5e5b5898f31b9b"
-)
-
-function extract {
+extract() {
 	unzip -q -o asiosdk2.3.zip
 	cd ASIOSDK2.3
 }
 
-function build {
+build() {
 	:
 }
 
-function install {
+install() {
 	cp -R ./ ${MUMBLE_PREFIX}/asio
 	chmod -R +xr ${MUMBLE_PREFIX}/asio
 }
