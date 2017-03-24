@@ -67,7 +67,6 @@ set (libsndfile_src
 		../src/g72xsf.c
 		../src/htk.c
 		../src/ircam.c
-		../src/macbinary3.c
 		../src/macos.c
 		../src/mat4.c
 		../src/mat5.c
@@ -83,7 +82,6 @@ set (libsndfile_src
 		../src/voc.c
 		../src/wve.c
 		../src/w64.c
-		../src/wav_w64.c
 		../src/wav.c
 		../src/xi.c
 		../src/mpc2k.c

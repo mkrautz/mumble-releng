@@ -5,33 +5,26 @@
 # <http://mumble.info/mumble-releng/LICENSE>.
 
 urls=(
-	"http://releng-distfiles.mumble.info/releng-distfiles/libsndfile-1.0.25.tar.gz"
-	"http://www.mega-nerd.com/libsndfile/files/libsndfile-1.0.25.tar.gz"
+	"http://releng-distfiles.mumble.info/releng-distfiles/libsndfile-1.0.27.tar.gz"
+	"http://www.mega-nerd.com/libsndfile/files/libsndfile-1.0.27.tar.gz"
 )
 
 digests=(
-	"sha1:e95d9fca57f7ddace9f197071cbcfb92fa16748e"
+	"sha1:e112d4937352d1722b06911b00c79e9bce15095c"
+	"sha256:a391952f27f4a92ceb2b4c06493ac107896ed6c76be9a613a4731f076d30fac0"
 )
 
 function extract {
-	tar -zxf libsndfile-1.0.25.tar.gz
-	cd libsndfile-1.0.25
+	tar -zxf libsndfile-1.0.27.tar.gz
+	cd libsndfile-1.0.27
 }
 
 function prepare {
-	patch -p1 < ${MUMBLE_BUILDENV_ROOT}/patches/libsndfile-1.0.25-d2a87385c1ca1d72918e9a2875d24f202a5093e8.patch
-	patch -p1 < ${MUMBLE_BUILDENV_ROOT}/patches/libsndfile-1.0.25-zerodivfix.patch
-
-	patch -p1 < ${MUMBLE_BUILDENV_ROOT}/patches/libsndfile-1.0.25-debian-00lossy_compy_test-overflow.patch
-	patch -p1 < ${MUMBLE_BUILDENV_ROOT}/patches/libsndfile-1.0.25-debian-01_sd2_rsrc_segfault.patch
-	patch -p1 < ${MUMBLE_BUILDENV_ROOT}/patches/libsndfile-1.0.25-debian-CVE-2014-9496.patch
-
-	patch -p1 < ${MUMBLE_BUILDENV_ROOT}/patches/libsndfile-sys-time-h.diff
-	patch -p1 < ${MUMBLE_BUILDENV_ROOT}/patches/libsndfile-1.0.25-msvc-compat.patch
+	#patch -p1 < ${MUMBLE_BUILDENV_ROOT}/patches/libsndfile-1.0.25-msvc-compat.patch
 
 	# Fix the things that libsndfile-1.0.25-msvc-compat.patch broke.
 	patch -p1 < ${MUMBLE_BUILDENV_ROOT}/patches/libsndfile-1.0.25-common-h-stdarg.patch
-	patch -p1 < ${MUMBLE_BUILDENV_ROOT}/patches/libsndfile-1.0.25-msc-ver-fixes.patch
+	#patch -p1 < ${MUMBLE_BUILDENV_ROOT}/patches/libsndfile-1.0.25-msc-ver-fixes.patch
 
 	# Avoid gyp duplicate basename error.
 	mv src/g72x.c src/g72xsf.c
